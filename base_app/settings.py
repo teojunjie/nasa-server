@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'trivial',
     'nasa',
     'elements',
+    'compounds',
 ]
 
 MIDDLEWARE = [

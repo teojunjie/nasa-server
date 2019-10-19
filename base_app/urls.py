@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^', include('trivial.urls')),
     url(r'^', include('nasa.urls')),
     url(r'^', include('elements.urls')),
+    url(r'^', include('compounds.urls')),
 ]

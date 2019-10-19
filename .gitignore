@@ -1,1 +1,11 @@
 .env
+*.pyc
+base_app/__pycache__/
+elements/__pycache__/
+elememts/migrations/__pycache__/
+compounds/__pycache__/
+compounts/migrations/__pycache__/
+nasa/__pycache__/
+nasa/migrations/__pycache__/
+trivial/__pycache__
+trivial/migrations/__pycache__
