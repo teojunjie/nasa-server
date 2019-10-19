@@ -10,6 +10,7 @@ from .serializers import TrivialSerializer
 from datetime import datetime
 import requests
 from django.db import transaction
+from rest_framework.generics import ListAPIView
 
 querystring = {
     "fragment":"true",
@@ -23,7 +24,7 @@ headers = {
 
 fmt = "%Y-%m-%d"
 
-class ListNasaTrivial(APIView):
+class BuildNasaTrivial(APIView):
     def get(self, request, *args, **kwargs):
         
         trivial_data = []
@@ -50,6 +51,9 @@ class ListNasaTrivial(APIView):
                     serialized = TrivialSerializer(trivial)
                     trivial_data.append(serialized.data)
                 
+        return Response(dict(hello='world'), status.HTTP_200_OK)
 
-        return Response(dict(result=trivial_data), status.HTTP_200_OK)
 
+class ListNasaTrivial(ListAPIView):
+    queryset = Trivial.objects.all()
+    serializer_class = TrivialSerializer
