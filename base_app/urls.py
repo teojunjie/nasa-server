@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('trivial.urls')),
     url(r'^', include('nasa.urls')),
+    url(r'^', include('elements.urls')),
 ]
