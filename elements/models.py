@@ -12,7 +12,6 @@ class Element(models.Model):
         blank=True,
     )
     atomic_radius = models.IntegerField(
-        max_length=255,
         null=True,
         blank=True,
     )

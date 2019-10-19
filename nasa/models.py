@@ -15,7 +15,6 @@ class SolarFlare(models.Model):
         max_length=255,
         null=True,
         blank=True,
-        unique=True,
     )
 
 class NasaEvent(models.Model):
