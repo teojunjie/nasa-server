@@ -17,6 +17,7 @@ from .serializers import (
 )
 from django.core import serializers
 from django.db import transaction
+from django.core.exceptions import ObjectDoesNotExist
 
 NASA_API_KEY = os.environ['NASA_API_KEY']
 SOLAR_FLARE_NASA_URL = "https://api.nasa.gov/DONKI/FLR"
@@ -106,3 +107,30 @@ class SaveSolarBodyView(APIView):
             status.HTTP_200_OK
         )
 
+class GetSolarBodyView(APIView):
+    def get(self, request, *args, **kwargs):
+        solarBodyName = kwargs.get('solarbody_name')
+
+        try:
+            solarBodies = SolarBody.objects.filter(englishName__icontains=solarBodyName)
+
+            serializedBodies = []
+            for solarBody in solarBodies:
+                serializedBody = SolarBodySerializer(solarBody)
+                result = dict(solarBody = serializedBody.data)
+                serializedBodies.append(result)
+            
+            return Response(
+                dict(
+                    result=serializedBodies,
+                    count=len(serializedBodies)
+                ),
+                status.HTTP_200_OK
+            )
+        except ObjectDoesNotExist:
+            return Response(
+                dict(
+                    result=None,
+                    count=0
+                ),
+                status=status.HTTP_200_OK) 
