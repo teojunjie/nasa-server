@@ -11,11 +11,13 @@ class Element(models.Model):
         null=True,
         blank=True,
     )
-    atomic_radius = models.IntegerField(
+    atomic_radius = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
-    boiling_point = models.IntegerField(
+    boiling_point = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
@@ -29,15 +31,18 @@ class Element(models.Model):
         null=True,
         blank=True,
     )
-    density = models.FloatField(
+    density = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
-    electron_affinity = models.IntegerField(
+    electron_affinity = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
-    electronegativity = models.FloatField(
+    electronegativity = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
@@ -61,7 +66,8 @@ class Element(models.Model):
         null=True,
         blank=True,
     )
-    melting_point = models.IntegerField(
+    melting_point = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
@@ -85,11 +91,13 @@ class Element(models.Model):
         null=True,
         blank=True,
     )
-    van_der_waal_radius = models.IntegerField(
+    van_der_waal_radius = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
-    year_discovered = models.IntegerField(
+    year_discovered = models.CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
