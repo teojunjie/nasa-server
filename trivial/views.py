@@ -17,5 +17,5 @@ headers = {
 class ListNasaTrivial(APIView):
     def get(self, request, *args, **kwargs):
         response = requests.request("GET", url, headers=headers, params=querystring)
-        return Response(dict(result=response), status.HTTP_200_OK)
+        return Response(response.json(), status.HTTP_200_OK)
 
