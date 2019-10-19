@@ -25,7 +25,7 @@ SECRET_KEY = 'h_4dn*$r1lnc7@f-9p88=mp6(2t2m3$&@4tt6c7bx8zld!hwsx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nasa-server.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['nasa-server.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
