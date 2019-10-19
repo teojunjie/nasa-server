@@ -23,7 +23,8 @@ class CreateCompoundView(APIView):
             compound = Compound.objects.create(
                 melting_point=melting_point,
                 boiling_point=boiling_point,
-                molecular_weight=compound_data.get('molecular_weight')
+                molecular_weight=compound_data.get('molecular_weight'),
+                name=compound_name,
             )
             serialized_compound = CompoundSerializer(compound)
 
