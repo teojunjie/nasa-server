@@ -3,11 +3,14 @@ from rest_framework.serializers import (
     CharField,
     IntegerField,
     DateTimeField,
+    FloatField,
+    BooleanField,
 )
 
 from .models import (
     SolarFlare,
     NasaEvent,
+    SolarBody,
 )
 
 class SolarFlareSerializer(ModelSerializer):
@@ -27,3 +30,13 @@ class NasaEventSerializer(ModelSerializer):
         model = NasaEvent
         fields = '__all__'
     
+class SolarBodySerializer(ModelSerializer):
+    englishName = CharField()
+    isPlanet = BooleanField()
+    dimension = CharField()
+    gravity = FloatField()
+    meanRadius = FloatField()
+
+    class Meta:
+        model = SolarBody
+        fields = '__all__'
