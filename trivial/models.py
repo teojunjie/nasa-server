@@ -10,7 +10,7 @@ class Trivial(models.Model):
     date = models.DateTimeField()
     nasa_event = models.ForeignKey(
         NasaEvent,
-        on_delete = models.PROTECT,
+        on_delete=models.PROTECT,
     )
     
 

@@ -1,6 +1,9 @@
 from django.db import models
 
-    
+NASA_EVENTS = [
+    ('solar', 'solarFlare'),
+]
+
 class SolarFlare(models.Model):
     classType = models.CharField(
         max_length=255,
@@ -12,6 +15,7 @@ class SolarFlare(models.Model):
         max_length=255,
         null=True,
         blank=True,
+        unique=True,
     )
 
 class NasaEvent(models.Model):
@@ -19,8 +23,10 @@ class NasaEvent(models.Model):
         max_length=255,
         null=False,
         blank=False,
+        choices=NASA_EVENTS,
     )
     solarEvent = models.ForeignKey(
         SolarFlare,
-        on_delete= models.CASCADE
+        on_delete= models.CASCADE,
+        null=True,
     )
