@@ -29,4 +29,14 @@ class Migration(migrations.Migration):
                 ('solarEvent', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='nasa.SolarFlare')),
             ],
         ),
+        migrations.CreateModel(
+            name='SolarBody',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('englishName', models.CharField(max_length=255)),
+                ('isPlanet', models.BooleanField(null=False)),
+                ('dimension', models.CharField(max_length=255, default=None, null=True)),
+                ('meanRadius', models.FloatField(null=True, blank=True, default=None,))    
+            ],
+        ),
     ]

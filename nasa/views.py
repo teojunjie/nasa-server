@@ -8,13 +8,16 @@ import datetime
 from nasa.models import (
     NasaEvent,
     SolarFlare,
+    SolarBody,
 )
 from .serializers import (
     SolarFlareSerializer,
-    NasaEventSerializer
+    NasaEventSerializer,
+    SolarBodySerializer,
 )
 from django.core import serializers
 from django.db import transaction
+from django.core.exceptions import ObjectDoesNotExist
 
 NASA_API_KEY = os.environ['NASA_API_KEY']
 SOLAR_FLARE_NASA_URL = "https://api.nasa.gov/DONKI/FLR"
@@ -68,3 +71,66 @@ class SaveSolarFlareView(APIView):
                 count=len(filtered_solared_events)),
             status.HTTP_200_OK
         )
+
+NASA_API_KEY = os.environ['NASA_API_KEY']
+SOLAR_BODIES_URL = "https://api.le-systeme-solaire.net/rest/bodies?"
+SOLAR_BODIES_QUERY_STRING = {
+    "data": "id,englishName,isPlanet,dimension,gravity,meanRadius"
+}
+
+class SaveSolarBodyView(APIView):
+    def get(self, request, *args, **kwargs):
+        response = requests.request("GET", SOLAR_BODIES_URL, params=SOLAR_BODIES_QUERY_STRING)
+        res = response.json()
+
+        bodies = res.get("bodies")
+
+        serializedBodies = []
+        for body in bodies:
+            # create solar body obj
+            solarBody = SolarBody.objects.create(
+                englishName=body.get('englishName'),
+                isPlanet=body.get('isPlanet'),
+                dimension=body.get('dimension'),
+                gravity=body.get('gravity'),
+                meanRadius=body.get('meanRadius'),
+            )
+
+            serializedBody = SolarBodySerializer(solarBody)
+            result = dict(solarBody = serializedBody.data)
+            serializedBodies.append(result)
+
+        return Response(
+            dict(
+                result=serializedBodies, 
+                count=len(serializedBodies)),
+            status.HTTP_200_OK
+        )
+
+class GetSolarBodyView(APIView):
+    def get(self, request, *args, **kwargs):
+        solarBodyName = kwargs.get('solarbody_name')
+
+        try:
+            solarBodies = SolarBody.objects.filter(englishName__icontains=solarBodyName)
+
+            serializedBodies = []
+            for solarBody in solarBodies:
+                serializedBody = SolarBodySerializer(solarBody)
+                result = dict(solarBody = serializedBody.data)
+                serializedBodies.append(result)
+            
+            return Response(
+                dict(
+                    result=serializedBodies,
+                    count=len(serializedBodies)
+                ),
+                status.HTTP_200_OK
+            )
+        except ObjectDoesNotExist:
+            return Response(
+                dict(
+                    result=None,
+                    count=0
+                ),
+                status=status.HTTP_200_OK) 
